@@ -1,0 +1,130 @@
+{
+  "results": [
+    {
+      "name": "Home renders real catalogue collections and categories",
+      "ok": true,
+      "ms": 760
+    },
+    {
+      "name": "Search, category filter, price sort and pagination use the API",
+      "ok": true,
+      "ms": 1032
+    },
+    {
+      "name": "Product page shows live price/stock; out-of-stock cannot be bought; quantity capped by stock",
+      "ok": true,
+      "ms": 698
+    },
+    {
+      "name": "Guest cart: add items, server quote total, checkout requires sign-in",
+      "ok": true,
+      "ms": 904
+    },
+    {
+      "name": "Registration validates input and creates a real session",
+      "ok": true,
+      "ms": 345
+    },
+    {
+      "name": "Checkout: address validation, save address, COD order persisted, stock reserved",
+      "ok": true,
+      "ms": 1463
+    },
+    {
+      "name": "Refresh keeps session (HttpOnly refresh cookie) and order comes from backend",
+      "ok": true,
+      "ms": 568
+    },
+    {
+      "name": "Online payment: Razorpay checkout → server signature verification → order confirmed & paid",
+      "ok": true,
+      "ms": 1831
+    },
+    {
+      "name": "Dismissed payment leaves order pending with countdown; \"Pay now\" completes it later",
+      "ok": true,
+      "ms": 2130
+    },
+    {
+      "name": "Tampered payment signature is rejected by server; order stays unpaid",
+      "ok": true,
+      "ms": 1595
+    },
+    {
+      "name": "Double-click on \"Place order\" creates exactly one order (Idempotency-Key)",
+      "ok": true,
+      "ms": 1523
+    },
+    {
+      "name": "Price change between cart and order is caught (409) and cart refreshed",
+      "ok": true,
+      "ms": 1885
+    },
+    {
+      "name": "Customer cancellation releases stock and is shown in history",
+      "ok": true,
+      "ms": 686
+    },
+    {
+      "name": "Notifications list real events; mark all read",
+      "ok": true,
+      "ms": 350
+    },
+    {
+      "name": "Wishlist saves to account",
+      "ok": true,
+      "ms": 517
+    },
+    {
+      "name": "Customer cannot reach admin UI; unauthenticated admin API call returns 401",
+      "ok": true,
+      "ms": 155
+    },
+    {
+      "name": "Saved address management and profile edit",
+      "ok": true,
+      "ms": 375
+    },
+    {
+      "name": "Sign out ends session; protected pages redirect to sign-in",
+      "ok": true,
+      "ms": 312
+    },
+    {
+      "name": "Admin: sign in, overview separates sandbox money from real revenue",
+      "ok": true,
+      "ms": 626
+    },
+    {
+      "name": "Admin: order lifecycle (processing → shipped → delivered) with server-validated transitions",
+      "ok": true,
+      "ms": 1122
+    },
+    {
+      "name": "Admin: duplicate product rejected (409), stock adjustment audited",
+      "ok": true,
+      "ms": 1300
+    },
+    {
+      "name": "Admin: payments list labels sandbox; customers list loads",
+      "ok": true,
+      "ms": 431
+    },
+    {
+      "name": "API outage shows an error with retry (no fake data); retry recovers",
+      "ok": true,
+      "ms": 2347
+    },
+    {
+      "name": "Mobile (390px): no horizontal overflow on key pages; screenshots captured",
+      "ok": true,
+      "ms": 4497
+    },
+    {
+      "name": "Dark theme renders",
+      "ok": true,
+      "ms": 1272
+    }
+  ],
+  "consoleErrors": []
+}

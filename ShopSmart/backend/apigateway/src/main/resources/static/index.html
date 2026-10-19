@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#11132b">
+    <meta name="description" content="ShopSmart — discover your next favourite thing.">
+    <title>ShopSmart | Discover More</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="announcement">
+        <span class="announcement-dot"></span>
+        Your next favourite thing is just a click away.
+        <a href="#featured">Explore deals ↗</a>
+    </div>
+
+    <header class="site-header">
+        <a href="/" class="brand" aria-label="ShopSmart home">
+            <span class="brand-icon">S</span>
+            Shop<span>Smart</span><span class="brand-period">.</span>
+        </a>
+
+        <button class="menu-button" id="menuButton"
+                aria-label="Toggle navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a class="nav-link active" href="#home">Home</a>
+            <a class="nav-link" href="#categories">Categories</a>
+            <a class="nav-link" href="#featured">Discover</a>
+            <a class="nav-link" href="#why-us">Why ShopSmart?</a>
+        </nav>
+
+        <div class="header-actions">
+            <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <input id="searchInput" type="search"
+                       placeholder="Search your next favourite..."
+                       autocomplete="off" aria-label="Search products">
+            </label>
+
+            <button class="icon-button" id="openCart"
+                    aria-label="Open shopping cart">
+                ♡
+            </button>
+            <button class="cart-button" id="cartButton"
+                    aria-label="View cart">
+                <span>Bag</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-glow hero-glow-one"></div>
+            <div class="hero-glow hero-glow-two"></div>
+
+            <div class="hero-content">
+                <span class="eyebrow hero-eyebrow">
+                    <span class="live-dot"></span>
+                    YOUR WORLD. YOUR FINDS.
+                </span>
+
+                <h1>
+                    A little more<br>
+                    <span class="gradient-text">you.</span>
+                    A lot more<br>
+                    <span class="hero-italic">wonderful.</span>
+                </h1>
+
+                <p class="hero-description">
+                    From everyday essentials to unexpected favourites,
+                    find things that make your day a little brighter.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="primary-button" href="#featured">
+                        Explore the collection <span>↗</span>
+                    </a>
+                    <a class="text-button" href="#categories">
+                        Find your vibe <span>→</span>
+                    </a>
+                </div>
+
+                <div class="hero-trust">
+                    <span><span class="trust-symbol">✦</span> Curated finds</span>
+                    <span><span class="trust-symbol">◇</span> Easy shopping</span>
+                    <span><span class="trust-symbol">♡</span> Made for you</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-frame">
+                    <img
+                        src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1100&q=85"
+                        alt="Stylish modern shopping boutique"
+                        fetchpriority="high">
+                    <div class="hero-image-overlay"></div>
+                </div>
+
+                <div class="floating-card floating-card-top">
+                    <span class="floating-icon">✦</span>
+                    <div>
+                        <strong>Good things</strong>
+                        <small>Worth discovering</small>
+                    </div>
+                </div>
+
+                <div class="floating-card floating-card-bottom">
+                    <div class="mini-avatars">
+                        <span>♡</span><span>✦</span><span>☺</span>
+                    </div>
+                    <div>
+                        <strong>Your next favourite?</strong>
+                        <small>It's waiting for you.</small>
+                    </div>
+                </div>
+
+                <div class="hero-orbit"></div>
+            </div>
+
+            <div class="hero-bottom-label">
+                <span>01 / DISCOVER SOMETHING NEW</span>
+                <span>SCROLL TO EXPLORE ↓</span>
+            </div>
+        </section>
+
+        <section class="category-section section-wrap" id="categories">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">EXPLORE YOUR WORLD</span>
+                    <h2>What are you <span class="gradient-text">into?</span></h2>
+                    <p>A little something for every side of you.</p>
+                </div>
+                <span class="section-side-note">FIND YOUR NEXT FAVOURITE ↗</span>
+            </div>
+
+            <div class="category-list" id="categoryList">
+                <!-- Categories are populated by app.js -->
+            </div>
+        </section>
+
+        <section class="featured-section section-wrap" id="featured">
+            <div class="section-heading product-heading">
+                <div>
+                    <span class="eyebrow">THE GOOD STUFF</span>
+                    <h2>Finds worth <span class="gradient-text">falling for.</span></h2>
+                    <p>Explore the collection and find something you love.</p>
+                </div>
+                <span class="product-count-label">
+                    <span class="live-dot"></span>
+                    <span id="productCount">Discovering products...</span>
+                </span>
+            </div>
+
+            <div class="product-toolbar">
+                <div class="product-tabs" id="productTabs">
+                    <button class="product-tab active" data-category="All">All finds</button>
+                </div>
+
+                <label class="sort-control">
+                    <span>Sort by</span>
+                    <select id="sortProducts" aria-label="Sort products">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: low to high</option>
+                        <option value="price-high">Price: high to low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="status-message" id="statusMessage" role="status"
+                 aria-live="polite"></div>
+
+            <div class="product-grid" id="productGrid">
+                <!-- Real products are loaded from Product Service -->
+                <div class="loading-card"><span class="loading-spinner"></span> Finding your favourites...</div>
+                <div class="loading-card"><span class="loading-spinner"></span> A little shopping magic...</div>
+                <div class="loading-card"><span class="loading-spinner"></span> Almost there...</div>
+            </div>
+
+            <div class="collection-footer">
+                <span>GOOD FINDS. GOOD FEELINGS.</span>
+                <button class="outline-button" id="loadMoreButton" type="button">
+                    Back to the top ↑
+                </button>
+            </div>
+        </section>
+
+        <section class="editorial-section section-wrap">
+            <div class="editorial-card editorial-dark">
+                <img
+                    src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1100&q=85"
+                    alt="Fashion pieces in a carefully styled collection"
+                    loading="lazy">
+                <div class="editorial-shade"></div>
+                <div class="editorial-content">
+                    <span class="eyebrow">YOUR STYLE, YOUR RULES</span>
+                    <h2>Wear what<br>feels like <em>you.</em></h2>
+                    <p>Discover pieces that say a little more.</p>
+                    <a href="#featured" class="editorial-link">Explore the collection ↗</a>
+                </div>
+                <span class="editorial-number">01</span>
+            </div>
+
+            <div class="editorial-card editorial-purple">
+                <img
+                    src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1100&q=85"
+                    alt="Modern electronics and gadgets"
+                    loading="lazy">
+                <div class="editorial-shade"></div>
+                <div class="editorial-content">
+                    <span class="eyebrow">A LITTLE TECH MAGIC</span>
+                    <h2>Smart finds.<br><em>Big energy.</em></h2>
+                    <p>Little upgrades. Better everyday moments.</p>
+                    <a href="#featured" class="editorial-link">Discover gadgets ↗</a>
+                </div>
+                <span class="editorial-number">02</span>
+            </div>
+        </section>
+
+        <section class="why-section section-wrap" id="why-us">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">THE SHOPSMART FEELING</span>
+                    <h2>Shopping should feel <span class="gradient-text">good.</span></h2>
+                    <p>Less hassle. More happy little discoveries.</p>
+                </div>
+            </div>
+
+            <div class="benefits-grid">
+                <article class="benefit-card">
+                    <span class="benefit-icon">✧</span>
+                    <h3>Find your thing</h3>
+                    <p>A growing collection of products for your everyday life.</p>
+                </article>
+                <article class="benefit-card">
+                    <span class="benefit-icon">♡</span>
+                    <h3>Made to feel easy</h3>
+                    <p>Browse, search, and add your favourites to your bag.</p>
+                </article>
+                <article class="benefit-card">
+                    <span class="benefit-icon">↗</span>
+                    <h3>A smoother journey</h3>
+                    <p>A clean, responsive experience across desktop and mobile.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="newsletter-section section-wrap">
+            <div class="newsletter-card">
+                <div>
+                    <span class="eyebrow">A LITTLE SOMETHING EXTRA</span>
+                    <h2>Good things are<br><span class="gradient-text">on their way.</span></h2>
+                    <p>More discoveries. More inspiration. More ShopSmart.</p>
+                </div>
+                <a href="#featured" class="primary-button">
+                    Find your favourites <span>↗</span>
+                </a>
+                <span class="newsletter-decoration">✳</span>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a href="/" class="brand footer-brand">
+            <span class="brand-icon">S</span>
+            Shop<span>Smart</span><span class="brand-period">.</span>
+        </a>
+        <p>A little more you. A lot more wonderful.</p>
+        <a href="#home" class="back-top">Back to the top ↑</a>
+        <div class="footer-bottom">
+            <span>© 2026 ShopSmart</span>
+            <span>Made with care, one discovery at a time.</span>
+        </div>
+    </footer>
+
+    <!-- Shopping cart drawer -->
+    <div class="cart-overlay" id="cartOverlay" aria-hidden="true">
+        <div class="cart-backdrop" id="closeCartBackdrop"></div>
+
+        <aside class="cart-drawer" role="dialog" aria-modal="true"
+               aria-labelledby="cartTitle">
+            <div class="cart-header">
+                <div>
+                    <span class="eyebrow">YOUR GOOD FINDS</span>
+                    <h2 id="cartTitle">Your bag <span id="cartTitleCount">(0)</span></h2>
+                </div>
+                <button class="close-cart" id="closeCart"
+                        aria-label="Close shopping cart">×</button>
+            </div>
+
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">
+                    <span class="empty-cart-icon">♡</span>
+                    <h3>Your bag is waiting.</h3>
+                    <p>Looks like you haven't found your favourites yet.</p>
+                    <button class="primary-button" id="continueShopping" type="button">
+                        Explore products ↗
+                    </button>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total-row">
+                    <span>Subtotal</span>
+                    <strong id="cartTotal">₹0.00</strong>
+                </div>
+                <p class="cart-note">Shipping and final totals are confirmed at checkout.</p>
+                <button class="primary-button checkout-button" id="checkoutButton"
+                        type="button">Continue to checkout ↗</button>
+            </div>
+        </aside>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/app.js" defer></script>
+</body>
+</html>

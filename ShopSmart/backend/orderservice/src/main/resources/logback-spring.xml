@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ShopSmart logging. Console output is unchanged (standard Spring Boot format, which already
+  shows the service in brackets, e.g. "[product-service]"). In addition:
+    logs/<service>.log     general log (everything that goes to the console)
+    logs/<service>-db.log  DB log only (event=db_query lines)          [services with a database]
+  Every event line carries an explicit service=<name> field.
+  Folder: LOG_PATH env var, default ../logs (that is backend/logs when started from a service folder).
+-->
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <springProperty scope="context" name="SERVICE" source="spring.application.name" defaultValue="unknown-service"/>
+    <property name="LOG_DIR" value="${LOG_PATH:-../logs}"/>
+
+    <appender name="APP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${SERVICE}.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/archive/${SERVICE}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>20MB</maxFileSize>
+            <maxHistory>14</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="DB_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${SERVICE}-db.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/archive/${SERVICE}-db-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>20MB</maxFileSize>
+            <maxHistory>14</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- DB log lines also stay in the console and the general log (additivity=true). -->
+    <logger name="com.shopsmart.orderservice.dblog" level="INFO" additivity="true">
+        <appender-ref ref="DB_FILE"/>
+    </logger>
+
+
+    <!-- Answer key for the demo violation switches: JSON lines, kept out of every normal log. -->
+    <appender name="GROUND_TRUTH" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_DIR}/ground-truth/${SERVICE}.jsonl</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <logger name="com.shopsmart.orderservice.demo.groundtruth" level="INFO" additivity="false">
+        <appender-ref ref="GROUND_TRUTH"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="APP_FILE"/>
+    </root>
+</configuration>

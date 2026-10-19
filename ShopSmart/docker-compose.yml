@@ -1,0 +1,95 @@
+# Full stack: MySQL + Eureka + 7 services + gateway + frontend (nginx on :8088).
+# Usage: cp .env.example .env && fill it in && docker compose up --build
+x-service-env: &service-env
+  DB_URL: ${DB_URL}
+  DB_USERNAME: ${DB_USERNAME}
+  DB_PASSWORD: ${DB_PASSWORD}
+  EUREKA_SERVER_URL: http://discovery-server:8761/eureka/
+  JWT_SECRET: ${JWT_SECRET}
+  INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+  CUSTOMER_SERVICE_URL: http://customer-service:8081
+  PRODUCT_SERVICE_URL: http://product-service:8082
+  ORDER_SERVICE_URL: http://order-service:8084
+  PAYMENT_SERVICE_URL: http://payment-service:8085
+  NOTIFICATION_SERVICE_URL: http://notification-service:8086
+  EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: shopsmart_db
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes: [mysql-data:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 10
+
+  discovery-server:
+    build: ./backend/discoveryserver
+
+  customer-service:
+    build: ./backend/customerservice
+    environment: *service-env
+    depends_on: { mysql: { condition: service_healthy }, discovery-server: { condition: service_started } }
+
+  product-service:
+    build: ./backend/productservice
+    environment: *service-env
+    depends_on: { mysql: { condition: service_healthy }, discovery-server: { condition: service_started } }
+
+  authentication-service:
+    build: ./backend/authenticationservice
+    environment:
+      <<: *service-env
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    depends_on: { mysql: { condition: service_healthy }, customer-service: { condition: service_started } }
+
+  notification-service:
+    build: ./backend/notificationservice
+    environment: *service-env
+    depends_on: { mysql: { condition: service_healthy } }
+
+  order-service:
+    build: ./backend/orderservice
+    environment:
+      <<: *service-env
+      SHIPPING_FLAT_FEE: ${SHIPPING_FLAT_FEE:-0}
+      SHIPPING_FREE_ABOVE: ${SHIPPING_FREE_ABOVE:-0}
+    depends_on: { mysql: { condition: service_healthy }, product-service: { condition: service_started } }
+
+  payment-service:
+    build: ./backend/paymentservice
+    environment:
+      <<: *service-env
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+      RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET}
+      MERCHANT_NAME: ${MERCHANT_NAME:-ShopSmart}
+    depends_on: { mysql: { condition: service_healthy }, order-service: { condition: service_started } }
+
+  analytics-service:
+    build: ./backend/analyticsservice
+    environment: *service-env
+    depends_on: { mysql: { condition: service_healthy } }
+
+  api-gateway:
+    build: ./backend/apigateway
+    environment:
+      EUREKA_SERVER_URL: http://discovery-server:8761/eureka/
+      SHOPSMART_ALLOWED_ORIGIN: ${SHOPSMART_ALLOWED_ORIGIN:-http://localhost:8088}
+    ports: ["8080:8080"]
+    depends_on: [discovery-server]
+
+  frontend:
+    build: ./frontend
+    ports: ["8088:80"]
+    depends_on: [api-gateway]
+
+volumes:
+  mysql-data:

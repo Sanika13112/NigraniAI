@@ -1,0 +1,33 @@
+# local secrets and generated data
+shopsmart.env.bat
+guardrail.env.bat
+tools/log-shipper/shipper-state.json
+tools/log-shipper/shipper-status.json
+tools/log-shipper/pseudonym-salt.txt
+tools/traffic-simulator/customers.json
+access-report*.md
+migration-report*.md
+backend/logs/
+exports/
+node_modules/
+target/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Secrets and environment variables
+.env
+.env.*
+!.env.example
+
+# Editors and operating system
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.log

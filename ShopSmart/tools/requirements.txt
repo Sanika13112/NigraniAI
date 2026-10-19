@@ -1,0 +1,4 @@
+requests>=2.31
+faker>=24
+psycopg[binary]>=3.1
+pymysql>=1.1
